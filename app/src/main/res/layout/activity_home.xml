@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="View.HomeActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:fitsSystemWindows="true">
+
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:expandedTitleMarginStart="15dp"
+                app:expandedTitleMarginBottom="20dp"
+                android:background="#EEEEEE"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap|noScroll">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/home_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/calendar_action_bar_icon"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:menu="@menu/toolbar_menu"/>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/category_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:tabMode="fixed"
+                    app:tabGravity="fill"
+                    android:elevation="4dp"
+                    app:tabIndicator="@color/colorAccent"/>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/category_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/home_bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:menu="@menu/toolbar_menu"
+            android:background="#E0E0E0"/>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+    </RelativeLayout>
+

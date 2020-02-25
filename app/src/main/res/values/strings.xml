@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Utility</string>
+
+    <!--    custom string-->
+
+    <string name="login_txt">Log in </string>
+    <string name="sign_up_txt">Sign up</string>
+    <string name="sign_in_txt">Sign in </string>
+    <string name="sign_in_wth_google_txt">Sign in with google</string>
+    <string name="email_hint_txt">Enter email address </string>
+    <string name="password_hint_txt">Enter password</string>
+
+    <string name="forgot_pwd_txt">Forgot password ? </string>
+    <string name="already_hve_n_account_txt">Already have an account</string>
+
+    <string name="both_field_error_txt">Field can\'t be empty</string>
+    <string name="password_weak_txt">Password too weak</string>
+    <string name="password_error_txt">Password can\'t be empty</string>
+    <string name="email_error_txt_second">Email doesn\'t matches with email pattern</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+<!--    fragment first-->
+
+    <string name="agenda_txt">AGENDA</string>
+    <string name="goal_counter_txt">0/3</string>
+    <string name="add_something_hint_txt">Add Something else</string>
+    <string name="journal_txt">JOURNAL</string>
+    <string name="what_mind_txt">What\'s on your mind?</string>
+    <string name="goal_one_txt">Walk 3,000 steps</string>
+
+
+<!--    frgment second-->
+
+    <string name="do_today_text_title">Do Today</string>
+    <string name="add_task_text_title">Add a task for today</string>
+    <string name="do_someday_text_title">Do Someday</string>
+
+<!--    bottom navigation menu string-->
+
+    <string name="nav_home_txt">Home</string>
+    <string name="nav_goal_txt">Goals</string>
+    <string name="nav_insights_txt">Insights</string>
+    <string name="nav_resources_txt">Resources</string>
+
+</resources>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="View.SignUpActivity"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <!--        logo layout...-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/logo_circle"
+                android:layout_centerInParent="true"/>
+
+
+        </RelativeLayout>
+
+
+        <!--        logo text-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="170dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up_txt"
+                android:gravity="center"
+                android:textSize="25sp"/>
+
+        </RelativeLayout>
+
+        <!--        text fields-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="230dp">
+
+            <!--            email layout-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_up_email_txtInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_up_email_txtInputEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/email_hint_txt"
+                    android:inputType="textEmailAddress"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            password layout-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_up_password_txtInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/sign_up_email_txtInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_up_password_txtInputEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:hint="@string/password_hint_txt"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="350dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sign_up_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_bg"
+                android:text="@string/sign_up_txt"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/cardview_light_background"
+                android:layout_margin="40dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/already_hve_an_account_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/already_hve_an_account"
+                android:textAlignment="center"
+                android:layout_below="@id/sign_up_btn"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+
+
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
