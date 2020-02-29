@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/toolbar_account"
-        android:title="Account"
+        android:title="@string/nav_home_txt"
         android:icon="@drawable/account_icon"
         app:showAsAction="never">
 
     </item>
 
     <item android:id="@+id/toolbar_goals"
-        android:title="Goals"
+        android:title="@string/nav_goal_txt"
         android:icon="@drawable/camera_icon"
         app:showAsAction="never">
 
     </item>
 
     <item android:id="@+id/toolbar_insights"
-        android:title="Insights"
+        android:title="@string/nav_insights_txt"
         android:icon="@drawable/insights_icon"
         app:showAsAction="never">
 
@@ -25,10 +25,12 @@
 
 
     <item android:id="@+id/toolbar_resources"
-        android:title="Resources"
+        android:title="@string/nav_resources_txt"
         android:icon="@drawable/camera_icon"
         app:showAsAction="never">
 
     </item>
+
+
 
 </menu>

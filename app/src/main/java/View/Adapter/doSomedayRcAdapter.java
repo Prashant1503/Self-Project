@@ -14,14 +14,14 @@ import com.example.utility.R;
 
 import java.util.List;
 
-import Model.Pojo.doMainRcPojo;
+import Model.Pojo.doSomedayRcPojo;
 
 public class doSomedayRcAdapter extends RecyclerView.Adapter {
 
-    public List<doMainRcPojo> doSomedayRcPojoList;
+    public List<doSomedayRcPojo> doSomedayRcPojoList;
     public Context mContext;
 
-    public doSomedayRcAdapter(List<doMainRcPojo> doSomedayRcPojoList, Context context) {
+    public doSomedayRcAdapter(List<doSomedayRcPojo> doSomedayRcPojoList, Context context) {
         this.doSomedayRcPojoList = doSomedayRcPojoList;
         this.mContext = context;
     }
@@ -40,7 +40,7 @@ public class doSomedayRcAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        doMainRcPojo model = doSomedayRcPojoList.get(position);
+        doSomedayRcPojo model = doSomedayRcPojoList.get(position);
 
         ((doSomedayRcViewHolder) holder).doSomedayImageView.setImageResource(model.getTaskImage());
         ((doSomedayRcViewHolder) holder).doSomedayTitleTextView.setText(model.getTaskTitle());

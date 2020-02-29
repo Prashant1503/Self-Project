@@ -14,16 +14,17 @@ import com.example.utility.R;
 
 import java.util.List;
 
-import Model.Pojo.doMainRcPojo;
+import Model.Pojo.doSomedayRcPojo;
+import Model.Pojo.doTodayRcPojo;
 
 public class doTodayRcAdapter extends RecyclerView.Adapter {
 
-    private List<doMainRcPojo> doTodayRcList;
-    private Context mContext;
+    private List<doTodayRcPojo> doTodayRcList;
+    public Context mContext;
 
-    public doTodayRcAdapter(List<doMainRcPojo> doTodayRcList, Context context) {
+    public doTodayRcAdapter(List<doTodayRcPojo> doTodayRcList, Context context) {
         this.doTodayRcList = doTodayRcList;
-        this.mContext = context;
+        mContext = context;
     }
 
     @NonNull
@@ -31,7 +32,7 @@ public class doTodayRcAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.do_today_rc_item_layout,parent,false);
+                inflate(R.layout.do_today_rc_item_layout_one,parent,false);
 
         return new doTodayRcViewHolder(view);
     }
@@ -39,12 +40,12 @@ public class doTodayRcAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        doMainRcPojo model = doTodayRcList.get(position);
+       doTodayRcPojo model = doTodayRcList.get(position);
 
-        ((doTodayRcViewHolder) holder).doTodayImageView.setImageResource(model.getTaskImage());
-        ((doTodayRcViewHolder) holder).doTodayTitleTextView.setText(model.getTaskTitle());
+        ((doTodayRcViewHolder) holder).doTodayItemImageView.setImageResource(model.getTaskImage());
+        ((doTodayRcViewHolder) holder).doTodayTitleTextView.setText(model.getTaskTitleText());
+        ((doTodayRcViewHolder) holder).doTodayDragImageView.setImageResource(model.getDragImage());
 
-        ((doTodayRcViewHolder) holder).doTodaySubtitleTitleTextView.setText(model.getTaskSubtitle());
 
     }
 
@@ -55,16 +56,19 @@ public class doTodayRcAdapter extends RecyclerView.Adapter {
 
     public class doTodayRcViewHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView doTodayImageView;
-        AppCompatTextView doTodayTitleTextView,doTodaySubtitleTitleTextView;
+        AppCompatImageView doTodayItemImageView;
+        AppCompatTextView doTodayTitleTextView;
+        AppCompatImageView doTodayDragImageView;
 
 
         public doTodayRcViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            doTodayImageView = itemView.findViewById(R.id.do_today_imageView);
-            doTodayTitleTextView = itemView.findViewById(R.id.do_today_title_textView);
-            doTodaySubtitleTitleTextView = itemView.findViewById(R.id.do_today_subtitle_textView);
+            doTodayItemImageView = itemView.findViewById(R.id.add_taskToday_ImageView);
+            doTodayTitleTextView = itemView.findViewById(R.id.add_task_today_textView);
+            doTodayDragImageView = itemView.findViewById(R.id.add_today_task_Drag_ImageView);
+
+
 
         }
     }

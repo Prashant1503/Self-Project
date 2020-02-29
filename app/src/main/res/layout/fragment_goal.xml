@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="View.Fragment.SecondFragment">
+    tools:context="View.Fragment.GoalFragment">
 
     <include
         layout="@layout/frst_frgment_frst_layout" />

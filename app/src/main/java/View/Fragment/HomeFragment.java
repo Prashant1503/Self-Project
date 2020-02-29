@@ -14,38 +14,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.utility.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.Pojo.FrstFrgmentAgendaPojo;
 import Model.Pojo.MainRcPojo;
-import View.Adapter.FrstFrgmentAgendaRcAdapter;
-import View.Adapter.FrstFrgmentMainRcAdapter;
+import Presenter.AddTodayLayoutPresenterImpl;
+import View.Adapter.HomeFrgmentMainRcAdapter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstFragment extends Fragment {
+public class HomeFragment extends Fragment  {
     View itemView;
 
 
     private RecyclerView frstFrgmentMainRecyclerView;
-    private FrstFrgmentMainRcAdapter mFrstFrgmentMainRcAdapter;
+    private HomeFrgmentMainRcAdapter mHomeFrgmentMainRcAdapter;
     private List<MainRcPojo> mMainRcPojosList;
 
-    private AppCompatTextView addSomethingTextView;
+    private AppCompatTextView whtsInMindTextViewListner;
+
 
 
 
 //    end
 
 
-    public FirstFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -54,8 +53,9 @@ public class FirstFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        itemView = inflater.inflate(R.layout.fragment_first, container, false);
+        itemView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        whtsInMindTextViewListner = itemView.findViewById(R.id.whts_inMind_textViewListner);
 
 
 
@@ -83,10 +83,11 @@ public class FirstFragment extends Fragment {
         mMainRcPojosList.add(new MainRcPojo(MainRcPojo.AGENDA_LAYOUT,"1"));
         mMainRcPojosList.add(new MainRcPojo(MainRcPojo.JOURNAL_LAYOUT));
 
-        mFrstFrgmentMainRcAdapter = new FrstFrgmentMainRcAdapter(mMainRcPojosList,getContext());
-        frstFrgmentMainRecyclerView.setAdapter(mFrstFrgmentMainRcAdapter);
+        mHomeFrgmentMainRcAdapter = new HomeFrgmentMainRcAdapter(mMainRcPojosList,getContext());
+        frstFrgmentMainRecyclerView.setAdapter(mHomeFrgmentMainRcAdapter);
 
     }
+
 
 
 

@@ -7,13 +7,13 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 import com.example.utility.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-import View.Fragment.ThirdFragment;
+import View.Fragment.InsightsFragment;
 import View.Adapter.CategoryViewPagerAdapter;
-import View.Fragment.FirstFragment;
-import View.Fragment.SecondFragment;
+import View.Fragment.HomeFragment;
+import View.Fragment.GoalFragment;
+import View.Fragment.ResourcesFragment;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     public CategoryViewPagerAdapter mCategoryViewPagerAdapter;
-    private BottomNavigationView mBottomNavigationView;
+
 
 
 
@@ -40,15 +40,18 @@ public class HomeActivity extends AppCompatActivity {
         categoryTabLayout.setupWithViewPager(categoryViewpager);
 
 
+
+
     }
 
     private void setUpViewpager(ViewPager viewpager) {
 
         mCategoryViewPagerAdapter = new CategoryViewPagerAdapter(getSupportFragmentManager());
 
-        mCategoryViewPagerAdapter.addFragment(new FirstFragment(),"Today");
-        mCategoryViewPagerAdapter.addFragment(new SecondFragment(),"Tommorrow");
-        mCategoryViewPagerAdapter.addFragment(new ThirdFragment(),"Yesterday");
+        mCategoryViewPagerAdapter.addFragment(new HomeFragment(),"Home");
+        mCategoryViewPagerAdapter.addFragment(new GoalFragment(),"Goals");
+        mCategoryViewPagerAdapter.addFragment(new InsightsFragment(),"Insights");
+        mCategoryViewPagerAdapter.addFragment(new ResourcesFragment(),"Resources");
 
         viewpager.setAdapter(mCategoryViewPagerAdapter);
 
@@ -63,8 +66,11 @@ public class HomeActivity extends AppCompatActivity {
 
         categoryTabLayout = findViewById(R.id.category_tab_layout);
 
-        mBottomNavigationView = findViewById(R.id.home_bottomNavigationView);
 
 
     }
+
+
+
+
 }

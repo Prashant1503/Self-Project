@@ -1,12 +1,12 @@
 package Model.Pojo;
 
-public class doMainRcPojo {
+public class doSomedayRcPojo {
 
     private int taskImage;
     private String taskTitle;
     private String taskSubtitle;
 
-    public doMainRcPojo(int taskImage, String taskTitle, String taskSubtitle) {
+    public doSomedayRcPojo(int taskImage, String taskTitle, String taskSubtitle) {
         this.taskImage = taskImage;
         this.taskTitle = taskTitle;
         this.taskSubtitle = taskSubtitle;

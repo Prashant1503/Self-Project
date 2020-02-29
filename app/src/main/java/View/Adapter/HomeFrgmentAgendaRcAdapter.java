@@ -9,18 +9,15 @@ import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.utility.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import Model.Pojo.FrstFrgmentAgendaPojo;
-import Model.Pojo.doMainRcPojo;
 
-public class FrstFrgmentAgendaRcAdapter extends RecyclerView.Adapter<FrstFrgmentAgendaRcAdapter.FrstFrgmentAgendaRcViewHolder> {
+public class HomeFrgmentAgendaRcAdapter extends RecyclerView.Adapter<HomeFrgmentAgendaRcAdapter.FrstFrgmentAgendaRcViewHolder> {
 
     public List<FrstFrgmentAgendaPojo> mFrstFrgmentAgendaPojosList;
     public Context mContext;
@@ -29,7 +26,7 @@ public class FrstFrgmentAgendaRcAdapter extends RecyclerView.Adapter<FrstFrgment
 
 
 
-    public FrstFrgmentAgendaRcAdapter(List<FrstFrgmentAgendaPojo> frstFrgmentAgendaPojosList, Context context) {
+    public HomeFrgmentAgendaRcAdapter(List<FrstFrgmentAgendaPojo> frstFrgmentAgendaPojosList, Context context) {
         this.mFrstFrgmentAgendaPojosList = frstFrgmentAgendaPojosList;
         this.mContext = context;
     }

@@ -15,10 +15,10 @@ import com.example.utility.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ThirdFragment extends Fragment {
+public class InsightsFragment extends Fragment {
 
 
-    public ThirdFragment() {
+    public InsightsFragment() {
         // Required empty public constructor
     }
 
@@ -27,7 +27,7 @@ public class ThirdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_third, container, false);
+        return inflater.inflate(R.layout.fragment_insights, container, false);
     }
 
 }

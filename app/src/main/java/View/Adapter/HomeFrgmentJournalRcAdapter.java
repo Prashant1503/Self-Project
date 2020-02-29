@@ -16,12 +16,12 @@ import java.util.List;
 
 import Model.Pojo.FrstFrgmentJournalPojo;
 
-public class FrstFrgmentJournalRcAdapter extends RecyclerView.Adapter {
+public class HomeFrgmentJournalRcAdapter extends RecyclerView.Adapter {
 
     private List<FrstFrgmentJournalPojo> journalRcPojoList;
     private Context mContext;
 
-    public FrstFrgmentJournalRcAdapter(List<FrstFrgmentJournalPojo> journalRcPojoList, Context context) {
+    public HomeFrgmentJournalRcAdapter(List<FrstFrgmentJournalPojo> journalRcPojoList, Context context) {
         this.journalRcPojoList = journalRcPojoList;
         this.mContext = context;
     }

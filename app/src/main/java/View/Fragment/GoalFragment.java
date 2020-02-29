@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.utility.R;
 
@@ -23,15 +22,15 @@ import java.util.List;
 import Model.Pojo.AddSomethingMainRcPojo;
 import Model.Pojo.FrstFrgmentAgendaPojo;
 import View.Adapter.AddSomethingMainRcAdapter;
-import View.Adapter.FrstFrgmentAgendaRcAdapter;
+import View.Adapter.HomeFrgmentAgendaRcAdapter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SecondFragment extends Fragment {
+public class GoalFragment extends Fragment {
 
-    private FrstFrgmentAgendaRcAdapter mFrstFrgmentAgendaRcAdapter;
+    private HomeFrgmentAgendaRcAdapter mHomeFrgmentAgendaRcAdapter;
     private List<FrstFrgmentAgendaPojo> mFrstFrgmentAgendaPojoList;
     private RecyclerView agendaRc;
 
@@ -47,7 +46,7 @@ public class SecondFragment extends Fragment {
 
 
 
-    public SecondFragment() {
+    public GoalFragment() {
         // Required empty public constructor
     }
 
@@ -55,26 +54,10 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         v = inflater.inflate(R.layout.fragment_second, container, false);
+         v = inflater.inflate(R.layout.fragment_goal, container, false);
 
 //        agenda main recycler view code..
         addSomethingTextView = v.findViewById(R.id.add_something_textView);
-
-        agendaRc = v.findViewById(R.id.frst_frgment_agendaLayoutRecyclerView);
-        agendaRc.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        mFrstFrgmentAgendaPojoList = new ArrayList<>();
-
-        mFrstFrgmentAgendaPojoList.add(new FrstFrgmentAgendaPojo("one","two"));
-        mFrstFrgmentAgendaPojoList.add(new FrstFrgmentAgendaPojo("one","two"));
-        mFrstFrgmentAgendaPojoList.add(new FrstFrgmentAgendaPojo("one","two"));
-        mFrstFrgmentAgendaPojoList.add(new FrstFrgmentAgendaPojo("one","two"));
-
-        mFrstFrgmentAgendaRcAdapter = new FrstFrgmentAgendaRcAdapter(mFrstFrgmentAgendaPojoList,getContext());
-        agendaRc.setAdapter(mFrstFrgmentAgendaRcAdapter);
-
-//        end..
-
 
         return v;
 

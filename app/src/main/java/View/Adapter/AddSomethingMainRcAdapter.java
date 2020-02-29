@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.Pojo.AddSomethingMainRcPojo;
-import Model.Pojo.doMainRcPojo;
+import Model.Pojo.doSomedayRcPojo;
+import Model.Pojo.doTodayRcPojo;
 
 import static Model.Pojo.AddSomethingMainRcPojo.TYPE_ONE;
 import static Model.Pojo.AddSomethingMainRcPojo.TYPE_TWO;
@@ -27,11 +29,11 @@ public class AddSomethingMainRcAdapter extends RecyclerView.Adapter{
     public List<AddSomethingMainRcPojo> mAddSomethingMainRcPojoList;
     public Context mContext;
 
-    public List<doMainRcPojo> doTodayList;
+    public List<doTodayRcPojo> doTodayList;
     public doTodayRcAdapter doTodayRcAdapter;
     public RecyclerView doTodayRecyclerView;
 
-    public List<doMainRcPojo> doSomedayList;
+    public List<doSomedayRcPojo> doSomedayList;
     public doSomedayRcAdapter mDoSomedayRcAdapter;
     public RecyclerView doSomedayRecyclerView;
 
@@ -116,6 +118,7 @@ public class AddSomethingMainRcAdapter extends RecyclerView.Adapter{
 
         AppCompatTextView doTodayTitleTv;
         AppCompatEditText addSomethingEdt;
+        AppCompatImageButton addTaskTodayImgButton;
 
 
 
@@ -125,14 +128,18 @@ public class AddSomethingMainRcAdapter extends RecyclerView.Adapter{
             doTodayTitleTv = itemView.findViewById(R.id.do_today_textView);
             addSomethingEdt = itemView.findViewById(R.id.add_today_edt_text);
 
+            addTaskTodayImgButton = itemView.findViewById(R.id.add_task_today_imageBtn);
+
             doTodayRecyclerView = itemView.findViewById(R.id.do_today_recycler_view);
             doTodayRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
             doTodayList = new ArrayList<>();
-            doTodayList.add(new doMainRcPojo(R.drawable.add_something_icon,"title","subtitle"));
-            doTodayList.add(new doMainRcPojo(R.drawable.add_something_icon,"title","subtitle"));
-            doTodayList.add(new doMainRcPojo(R.drawable.add_something_icon,"title","subtitle"));
-            doTodayList.add(new doMainRcPojo(R.drawable.add_something_icon,"title","subtitle"));
+
+            doTodayList.add(new doTodayRcPojo(R.drawable.calendar_action_bar_icon,R.drawable.drag_icon,"taskOne"));
+            doTodayList.add(new doTodayRcPojo(R.drawable.calendar_action_bar_icon,R.drawable.drag_icon,"taskOne"));
+            doTodayList.add(new doTodayRcPojo(R.drawable.calendar_action_bar_icon,R.drawable.drag_icon,"taskOne"));
+            doTodayList.add(new doTodayRcPojo(R.drawable.calendar_action_bar_icon,R.drawable.drag_icon,"taskOne"));
+
 
             doTodayRcAdapter = new doTodayRcAdapter(doTodayList,mContext);
             doTodayRecyclerView.setAdapter(doTodayRcAdapter);
@@ -157,11 +164,11 @@ public class AddSomethingMainRcAdapter extends RecyclerView.Adapter{
             doSomedayRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
             doSomedayList = new ArrayList<>();
-            doSomedayList.add(new doMainRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
-            doSomedayList.add(new doMainRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
-            doSomedayList.add(new doMainRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
-            doSomedayList.add(new doMainRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
-            doSomedayList.add(new doMainRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
+            doSomedayList.add(new doSomedayRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
+            doSomedayList.add(new doSomedayRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
+            doSomedayList.add(new doSomedayRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
+            doSomedayList.add(new doSomedayRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
+            doSomedayList.add(new doSomedayRcPojo(R.drawable.camera_icon,"Title is here","Subtitle 1is here"));
 
             mDoSomedayRcAdapter = new doSomedayRcAdapter(doSomedayList,mContext);
             doSomedayRecyclerView.setAdapter(mDoSomedayRcAdapter);

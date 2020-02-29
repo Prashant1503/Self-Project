@@ -36,7 +36,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
+                android:layout_margin="15dp"
                 android:padding="6dp"
                 android:orientation="vertical">
 

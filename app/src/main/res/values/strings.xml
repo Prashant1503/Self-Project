@@ -21,7 +21,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-<!--    fragment first-->
+    <!--    fragment first-->
 
     <string name="agenda_txt">AGENDA</string>
     <string name="goal_counter_txt">0/3</string>
@@ -31,17 +31,26 @@
     <string name="goal_one_txt">Walk 3,000 steps</string>
 
 
-<!--    frgment second-->
+    <!--    frgment second-->
 
     <string name="do_today_text_title">Do Today</string>
     <string name="add_task_text_title">Add a task for today</string>
     <string name="do_someday_text_title">Do Someday</string>
 
-<!--    bottom navigation menu string-->
+    <!--    bottom navigation menu string-->
 
     <string name="nav_home_txt">Home</string>
     <string name="nav_goal_txt">Goals</string>
     <string name="nav_insights_txt">Insights</string>
     <string name="nav_resources_txt">Resources</string>
+    <string name="nav_search_txt">Search</string>
+
+
+
+    <!--    frgament string-->
+    <string name="home_fragment_text">Home </string>
+    <string name="goal_fragment_text">Goal </string>
+    <string name="insights_fragment_text">Insights </string>
+    <string name="resources_fragment_text">Resources </string>
 
 </resources>
