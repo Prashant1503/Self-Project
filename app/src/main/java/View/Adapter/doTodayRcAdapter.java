@@ -42,9 +42,9 @@ public class doTodayRcAdapter extends RecyclerView.Adapter {
 
        doTodayRcPojo model = doTodayRcList.get(position);
 
-        ((doTodayRcViewHolder) holder).doTodayItemImageView.setImageResource(model.getTaskImage());
+//        ((doTodayRcViewHolder) holder).doTodayItemImageView.setImageResource(model.getTaskImage());
         ((doTodayRcViewHolder) holder).doTodayTitleTextView.setText(model.getTaskTitleText());
-        ((doTodayRcViewHolder) holder).doTodayDragImageView.setImageResource(model.getDragImage());
+//        ((doTodayRcViewHolder) holder).doTodayDragImageView.setImageResource(model.getDragImage());
 
 
     }

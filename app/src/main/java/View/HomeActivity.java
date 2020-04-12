@@ -12,8 +12,8 @@ import com.google.android.material.tabs.TabLayout;
 import View.Fragment.InsightsFragment;
 import View.Adapter.CategoryViewPagerAdapter;
 import View.Fragment.HomeFragment;
-import View.Fragment.GoalFragment;
-import View.Fragment.ResourcesFragment;
+import View.Fragment.InboxFragment;
+import View.Fragment.SettingsFragment;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -49,9 +49,9 @@ public class HomeActivity extends AppCompatActivity {
         mCategoryViewPagerAdapter = new CategoryViewPagerAdapter(getSupportFragmentManager());
 
         mCategoryViewPagerAdapter.addFragment(new HomeFragment(),"Home");
-        mCategoryViewPagerAdapter.addFragment(new GoalFragment(),"Goals");
+        mCategoryViewPagerAdapter.addFragment(new InboxFragment(),"Inbox");
         mCategoryViewPagerAdapter.addFragment(new InsightsFragment(),"Insights");
-        mCategoryViewPagerAdapter.addFragment(new ResourcesFragment(),"Resources");
+        mCategoryViewPagerAdapter.addFragment(new SettingsFragment(),"Settings");
 
         viewpager.setAdapter(mCategoryViewPagerAdapter);
 

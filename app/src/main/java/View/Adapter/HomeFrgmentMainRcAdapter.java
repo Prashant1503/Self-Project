@@ -1,48 +1,67 @@
 package View.Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.utility.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.database.ChildEventListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import Fragment.EventTimePickerFragment;
+import Model.Pojo.EventTodayBtnmodel;
 import Model.Pojo.FrstFrgmentAgendaPojo;
 import Model.Pojo.FrstFrgmentJournalPojo;
 import Model.Pojo.MainRcPojo;
-import Model.Pojo.doSomedayRcPojo;
 import Model.Pojo.doTodayRcPojo;
 
 import static Model.Pojo.MainRcPojo.AGENDA_LAYOUT;
 import static Model.Pojo.MainRcPojo.JOURNAL_LAYOUT;
 
-public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
+public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter implements TimePickerDialog.OnTimeSetListener {
 
     AppCompatTextView doTodayTextView;
     AppCompatEditText addTodayTaskEdt;
@@ -50,17 +69,18 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
 
 //    presenter for addTodayTask.
 
-    FirebaseDatabase mFirebaseDatabase;
-    DatabaseReference mDatabaseReference;
+    FirebaseDatabase rootFirebaseDb;
+    DatabaseReference rootDbRef;
+
+//    event fields..
+    AppCompatTextView journalTitleTv;
+    RecyclerView journalRecyclerView;
 
 //    class for inflating frgemnt.
 
 
-
     public static final String TAG = "do Today Message";
-
-
-
+    private doTodayRcPojo modelOne;
 
 
     private List<MainRcPojo> mMainRcPojoslist;
@@ -70,22 +90,41 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
     private HomeFrgmentAgendaRcAdapter agendaRcAdapter;
 
     private List<FrstFrgmentJournalPojo> journalRcList;
-    private HomeFrgmentJournalRcAdapter journalRcAdapter;
+    private HomeFrgmentEventRcAdapter journalRcAdapter;
 
-//    fields for doToday layout...
+    private FloatingActionButton fBtn;
+
+    //    fields for doToday layout...
     private List<doTodayRcPojo> doTodayRcList;
     private doTodayRcAdapter doTodayRcAdapter;
     private RecyclerView doTodayRecycclerView;
 
+
+//    event fields
+    private BottomSheetDialog eventDialog;
+    AppCompatEditText addEventEdt;
+    AppCompatButton todayBtn,inboxBtn;
+    AppCompatImageView labelImageView,priorityImageView,alarmImageView,chatImageView,sendImageView;
+    String eventTitle;
+    String eventPushId;
+
+
+
+    long id;
+    String title;
+
 //    field for doSomeday layout;
 
-    private List<doSomedayRcPojo> doSomedayList;
-    private doSomedayRcAdapter doSomedayRcAdapter;
-    private RecyclerView doSomedayRecyclerView;
+    private List<FrstFrgmentJournalPojo> eventList;
+    private HomeFrgmentEventRcAdapter eventRcAdapter;
+    private RecyclerView eventRecyclerView;
+
+     EventTodayBtnmodel eventModel;
+
 
     public HomeFrgmentMainRcAdapter(List<MainRcPojo> mainRcPojoslist, Context ctx) {
-       this.mMainRcPojoslist = mainRcPojoslist;
-       this.mContext = ctx;
+        this.mMainRcPojoslist = mainRcPojoslist;
+        this.mContext = ctx;
     }
 
     @Override
@@ -108,26 +147,197 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
 
         switch (viewType) {
             case AGENDA_LAYOUT:
-                View agendaView = LayoutInflater.from(parent.getContext()).inflate(R.layout.frst_frgment_frst_layout,parent,false);
+                View agendaView = LayoutInflater.from(parent.getContext()).inflate(R.layout.frst_frgment_frst_layout, parent, false);
 
                 return new agendaRecyclerViewHolder(agendaView);
 
             case JOURNAL_LAYOUT:
 
-                View journalView = LayoutInflater.from(parent.getContext()).inflate(R.layout.frst_frgment_second_layout,parent,false);
+                 final View journalView = LayoutInflater.from(parent.getContext()).inflate(R.layout.frst_frgment_second_layout, parent, false);
+
+//                recycler view for journal layout..
+                eventRecyclerView = journalView.findViewById(R.id.frst_frgment_second_layoutRecyclerView);
+
+                final LinearLayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
+                eventRecyclerView.setLayoutManager(manager);
+
+                eventList = new ArrayList<>();
+                eventList.add(new FrstFrgmentJournalPojo("Title one"));
+
+                eventRcAdapter = new HomeFrgmentEventRcAdapter(eventList,mContext);
+                eventRecyclerView.setAdapter(eventRcAdapter);
+
+
+//end of the recycler view..
+
+                fBtn = journalView.findViewById(R.id.mainFbButton);
+
+
+
+                eventDialog = new BottomSheetDialog(mContext,R.style.BottomSheetDialogTheme);
+
+                fBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        View eventBottomSheetView = LayoutInflater.from(parent.getContext())
+                               .inflate(R.layout.event_bottom_sheet_layout,
+                                       (RelativeLayout) parent.findViewById(R.id.bottomSheetContainer));
+
+//                       getting view from event bottom sheet ...
+                        addEventEdt = eventBottomSheetView.findViewById(R.id.bottom_sheet_dialog_event_edt);
+                        todayBtn = eventBottomSheetView.findViewById(R.id.today_eventButton);
+                        inboxBtn = eventBottomSheetView.findViewById(R.id.today_inbox_Button);
+                        sendImageView = eventBottomSheetView.findViewById(R.id.event_send_imageView);
+
+                        todayBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                BottomSheetDialog eventDialog = new BottomSheetDialog(mContext,R.style.BottomSheetDialogTheme);
+
+                                View eventView = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_today_btn_bottom_sheet_layout,
+                                        (LinearLayout) journalView.findViewById(R.id.event_main_linearContainer));
+
+//                               fields for event bottom dialog..
+                                AppCompatButton addEventBtn = eventView.findViewById(R.id.add_event_calender_btn);
+                                CalendarView eventCalender = eventView.findViewById(R.id.today_btn_calendar_view);
+
+                                eventModel = new EventTodayBtnmodel();
+
+                                final Toolbar eventToolbar = eventView.findViewById(R.id.event_today_toolbar);
+
+                                addEventBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        Log.d(TAG, "onClick: " + "Something went wrong please check it");
+
+                                    }
+                                });
+
+                                eventCalender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                                    @Override
+                                    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
+                                        String title = addEventEdt.getText().toString();
+
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.set(Calendar.YEAR,year);
+                                        calendar.set(Calendar.MONTH,month);
+                                        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+
+                                        String time = DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.getTime());
+
+                                        Log.d(TAG, "onSelectedDayChange: " + time);
+
+                                        eventModel.setMonth((month));
+                                        eventModel.setDay(dayOfMonth);
+                                        eventModel.setYear(year);
+                                        eventModel.setTime(time);
+                                        eventModel.setEventTitle(title);
+
+
+                                        eventToolbar.setTitle(time);
+
+                                    }
+                                });
+
+                                eventDialog.setContentView(eventView) ;
+                                eventDialog.show();
+
+                            }
+                        });
+
+
+
+                        sendImageView.setOnClickListener(new View.OnClickListener() {
+                           @Override
+                           public void onClick(View v) {
+
+
+
+                               if (TextUtils.isEmpty(addEventEdt.getText().toString())) {
+                                   eventDialog.dismiss();
+                               }
+                               if (!TextUtils.isEmpty(addEventEdt.getText().toString())) {
+
+                                   rootFirebaseDb = FirebaseDatabase.getInstance();
+                                   rootDbRef = rootFirebaseDb.getReference();
+
+                                   eventPushId = rootDbRef.push().getKey();
+
+//                                   FrstFrgmentJournalPojo model = new FrstFrgmentJournalPojo(addEventEdt.getText().toString());
+
+                                   rootFirebaseDb = FirebaseDatabase.getInstance();
+                                   rootDbRef = rootFirebaseDb.getReference();
+
+
+                                   rootDbRef.child("EventList").child(String.valueOf(eventPushId)).setValue(eventModel);
+                                   rootDbRef.push();
+
+                                   Toast.makeText(mContext,"Task successfully added",Toast.LENGTH_SHORT).show();
+                                   addEventEdt.setText("");
+
+
+//                                   getting data of event from firebase child node ...
+                                   rootDbRef.child("EventList").child(eventPushId).addValueEventListener(new ValueEventListener() {
+                                       @Override
+                                       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                           eventList = new ArrayList<>();
+
+                                           for (DataSnapshot eventDs : dataSnapshot.getChildren()) {
+                                               Log.d(TAG, "onDataChange: " + eventDs.getValue());
+                                           }
+//                                                    eventTitle = dataSnapshot.child("taskTitle").getValue(String.class);
+
+
+                                           journalRecyclerView = journalView.findViewById(R.id.frst_frgment_second_layoutRecyclerView);
+                                           journalRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+
+                                           journalRcList = new ArrayList<>();
+                                           journalRcList.add(new FrstFrgmentJournalPojo(eventTitle));
+
+                                           journalRcAdapter = new HomeFrgmentEventRcAdapter(journalRcList,mContext);
+                                           journalRecyclerView.setAdapter(journalRcAdapter);
+
+//                                                   setting data to event list...
+
+                                       }
+
+                                       @Override
+                                       public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                           Log.d(TAG, "onDatabase Error: " + databaseError.getMessage());
+
+                                       }
+                                   });
+                               }
+                           }
+                       });
+
+                       eventDialog.setContentView(eventBottomSheetView);
+                       eventDialog.show();
+                    }
+                });
                 return new journalRecyclerViewHolder(journalView);
 
 
             default:
-                    return null;
+                return null;
         }
     }
+
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+
 
         switch (mMainRcPojoslist.get(position).getViewType()) {
 
@@ -138,44 +348,41 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
                 ((agendaRecyclerViewHolder) holder).setData(goalcountertext);
 
 
-
                 break;
 
             case JOURNAL_LAYOUT:
 
-                ((journalRecyclerViewHolder) holder).whtsinMindTextTvListner.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-//                        Toast.makeText(mContext,"Clicked",Toast.LENGTH_SHORT).show();
-                        System.out.println("Some other text is been presented");
-
-                    }
-                });
+//                ((journalRecyclerViewHolder) holder).eventItemRadioBtn.setText(eventPojo.getTaskTitle());
 
 
             default:
                 return;
 
 
-
         }
 
     }
+
 
     @Override
     public int getItemCount() {
         return mMainRcPojoslist.size();
     }
 
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+        eventModel.setHour(hourOfDay);
+        eventModel.setMinute(minute);
+
+    }
+
 //    view holder class.
 
     public class agendaRecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        AppCompatTextView agendaTitleTv,goalCounterTxtTv,addSomethingTv;
+        AppCompatTextView agendaTitleTv, goalCounterTxtTv, addSomethingTv;
         RecyclerView agendaRecyclerView;
-
-
 
 
         public agendaRecyclerViewHolder(@NonNull final View itemView) {
@@ -184,6 +391,45 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
             agendaTitleTv = itemView.findViewById(R.id.agenda_title_tv);
             goalCounterTxtTv = itemView.findViewById(R.id.goal_counter_tv);
             addSomethingTv = itemView.findViewById(R.id.add_something_textView);
+
+            rootFirebaseDb = FirebaseDatabase.getInstance();
+            rootDbRef = rootFirebaseDb.getReference();
+
+//setting data to agenda list..
+            agendaRecyclerView = itemView.findViewById(R.id.frst_frgment_agendaLayoutRecyclerView);
+            agendaList = new ArrayList<>();
+
+            agendaRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            agendaList = new ArrayList<>();
+
+            rootDbRef.child("doToday").addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+
+                        String title = ds.child("taskTitleText").getValue(String.class);
+
+
+                        agendaList.add(new FrstFrgmentAgendaPojo("",title));
+
+                        agendaRcAdapter = new HomeFrgmentAgendaRcAdapter(agendaList,mContext);
+                        agendaRecyclerView.setAdapter(agendaRcAdapter);
+
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    Toast.makeText(mContext,"Database Error : " +databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+
+                }
+            });
 
 
             addSomethingTv.setOnClickListener(new View.OnClickListener() {
@@ -195,37 +441,7 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
                 }
             });
 
-            agendaRecyclerView = itemView.findViewById(R.id.frst_frgment_agendaLayoutRecyclerView);
-            agendaRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-            agendaList = new ArrayList<>();
-
-//            getting data into agenda recycler view whatever the data added by user into bottom sheet dialog.
-            mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-
-            mDatabaseReference.child("Do today").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    String title = String.valueOf(dataSnapshot.getValue());
-
-                    mDatabaseReference.limitToLast(1);
-
-                    FrstFrgmentAgendaPojo pojo = new FrstFrgmentAgendaPojo(title,title);
-                    agendaList.add(pojo);
-
-                    agendaRcAdapter = new HomeFrgmentAgendaRcAdapter(agendaList,mContext);
-                    agendaRecyclerView.setAdapter(agendaRcAdapter);
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    Toast.makeText(mContext,"SomeThing went wrong"+databaseError.getMessage(),Toast.LENGTH_SHORT).show();
-
-                }
-            });
 
 
         }
@@ -237,32 +453,34 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
 
     public class journalRecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        AppCompatTextView journalTitleTv,whtsinMindTextTvListner;
-        RecyclerView journalRecyclerView;
+        MaterialRadioButton eventItemRadioBtn;
+
 
         public journalRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            journalTitleTv = itemView.findViewById(R.id.journal_title_textView);
-            whtsinMindTextTvListner = itemView.findViewById(R.id.whts_inMind_textViewListner);
 
+            eventItemRadioBtn = itemView.findViewById(R.id.event_radioBtn);
+
+            journalTitleTv = itemView.findViewById(R.id.journal_title_textView);
             journalRecyclerView = itemView.findViewById(R.id.frst_frgment_second_layoutRecyclerView);
             journalRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
+
             journalRcList = new ArrayList<>();
+            eventList.add(new FrstFrgmentJournalPojo("Title one"));
 
-            journalRcList.add(new FrstFrgmentJournalPojo("2:00 PM"));
-            journalRcList.add(new FrstFrgmentJournalPojo("2:00 PM"));
-
-            journalRcList.add(new FrstFrgmentJournalPojo("2:00 PM"));
-            journalRcList.add(new FrstFrgmentJournalPojo("2:00 PM"));
-
-            journalRcAdapter = new HomeFrgmentJournalRcAdapter(journalRcList,mContext);
+            journalRcAdapter = new HomeFrgmentEventRcAdapter(eventList,mContext);
             journalRecyclerView.setAdapter(journalRcAdapter);
 
         }
 
+
     }
+
+//    method to load data from firebase...
+
+
     @SuppressLint("ClickableViewAccessibility")
     public void inflateCustomDialog() {
 
@@ -270,6 +488,12 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mContext);
         bottomSheetDialog.setContentView(R.layout.add_something_first_recycler_view_layout);
         bottomSheetDialog.setCanceledOnTouchOutside(false);
+
+//        initializing firebase database and firebase database refrence...
+
+        rootFirebaseDb = FirebaseDatabase.getInstance();
+        rootDbRef = rootFirebaseDb.getReference();
+//        end..
 
 //        initializing widgets for bottomsheet dialog..
 
@@ -279,18 +503,12 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
 
 //        initiazling data for doTodayRecycler view....
         doTodayRecycclerView = bottomSheetDialog.findViewById(R.id.do_today_recycler_view);
+
+
 //       setting linear layout manager for  do Today recycler view.....
 
-        LinearLayoutManager managerOne = new LinearLayoutManager(mContext);
-        managerOne.setOrientation(LinearLayoutManager.VERTICAL);
-
-        doTodayRecycclerView.setLayoutManager(managerOne);
-
-        doTodayRcList = new ArrayList<>();
 
 //        end..
-
-
 
         addTodayTaskEdt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -306,15 +524,14 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
             @Override
             public void afterTextChanged(Editable s) {
 
+
                 final Drawable logo = mContext.getResources().getDrawable(R.drawable.error_icon);
 
                 Drawable img = mContext.getResources().getDrawable(R.drawable.floating_button_icon);
 
-
-
                 final String data = s.toString();
 
-                if (data.length() >=1){
+                if (data.length() >= 1) {
 
                     addTodayTaskImgButton.setVisibility(View.VISIBLE);
                     addTodayTaskImgButton.setBackgroundDrawable(img);
@@ -323,88 +540,79 @@ public class HomeFrgmentMainRcAdapter extends RecyclerView.Adapter {
                         @Override
                         public void onClick(View v) {
 
-                            if (data.isEmpty()) {
+                            if (addTodayTaskEdt.getText().toString().isEmpty()) {
 
-                                addTodayTaskEdt.setError("Field can't be empty",logo);
-                            }
-                            else
-                            {
+                                addTodayTaskEdt.setError("Field can't be empty", logo);
+                            } else {
 
-//                                getting data from doToday child into recycler view....
-                                mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+//                                getting data from doToday child into recycler view...
+                                title = addTodayTaskEdt.getText().toString();
 
-                                final String id = mDatabaseReference.push().getKey();
+                                if (!title.isEmpty()) {
 
-                                mDatabaseReference.child("Do today").child(id).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
+//                                    adding data to firebase data..
+                                    String id = rootDbRef.push().getKey();
+                                    doTodayRcPojo model = new doTodayRcPojo(R.id.add_taskToday_ImageView,R.id.add_today_task_Drag_ImageView,title);
+                                    rootDbRef.child("doToday").child(id).setValue(model);
 
-                                        if (task.isSuccessful()) {
+                                    Toast.makeText(mContext,"Goal added success",Toast.LENGTH_SHORT).show();
+                                    addTodayTaskEdt.setText("");
 
-                                            Toast.makeText(mContext,"Data saved successfully",Toast.LENGTH_SHORT).show();
-                                            addTodayTaskEdt.setText(null);
-
-//                                            displaying data to recycler view whatever the user entered...
-
-                                            mDatabaseReference.child("Do today").addValueEventListener(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                                    String value = String.valueOf(dataSnapshot.getValue());
-
-                                                    doTodayRcPojo model = new doTodayRcPojo(R.drawable.calendar_action_bar_icon, R.drawable.drag_icon, value);
-                                                    doTodayRcList.add(model);
-
-                                                    doTodayRcAdapter = new doTodayRcAdapter(doTodayRcList, mContext);
-                                                    doTodayRecycclerView.setAdapter(doTodayRcAdapter);
+                                    doTodayRecycclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+                                    doTodayRcList = new ArrayList<>();
 
 
-                                                    Log.i(TAG,value);
+//                                    setting data to doToday recycler view,when added with all data stored on firebase database.
+                                    rootDbRef.child("doToday").addValueEventListener(new ValueEventListener() {
 
-                                                }
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
 
-                                                    Log.i(TAG,databaseError.getMessage());
 
-                                                }
-                                            });
+                                                String title = ds.child("taskTitleText").getValue(String.class);
 
+                                                Log.d(TAG, "Title: " + title);
+
+
+
+                                                doTodayRcList.add(new doTodayRcPojo(R.id.add_taskToday_ImageView,R.id.add_today_task_Drag_ImageView,title));
+
+                                                doTodayRcAdapter = new doTodayRcAdapter(doTodayRcList,mContext);
+                                                doTodayRecycclerView.setAdapter(doTodayRcAdapter);
+
+                                            }
 
                                         }
-                                        else
-                                        {
-                                            Toast.makeText(mContext,"Data not saved" + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            Toast.makeText(mContext,"Database Error : " + databaseError.getMessage().toString(),Toast.LENGTH_SHORT).show();
+
                                         }
-                                    }
-                                });
+                                    });
+
+
+                                }
 
                             }
-                        };
+                        }
+
+                        ;
 
                     });
 
 
-                }else {
+                } else {
 
                     addTodayTaskImgButton.setVisibility(View.VISIBLE);
                 }
             }
         });
 
-//
-
         bottomSheetDialog.show();
 
     }
-
-
-
-
-
-
-
-
 
 }

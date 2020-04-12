@@ -1,11 +1,13 @@
 package View.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -44,12 +46,24 @@ public class HomeFrgmentAgendaRcAdapter extends RecyclerView.Adapter<HomeFrgment
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FrstFrgmentAgendaRcViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FrstFrgmentAgendaRcViewHolder holder, final int position) {
 
-        FrstFrgmentAgendaPojo model = mFrstFrgmentAgendaPojosList.get(position);
+        final FrstFrgmentAgendaPojo model = mFrstFrgmentAgendaPojosList.get(position);
 
         holder.subtitleTextTv.setText(model.getSubtitleText());
         holder.radioBtn.setText(model.getRadioBtnText());
+
+        holder.radioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                removeTodo(position);
+
+                Toast.makeText(mContext,"Todo is removed",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
 
     }
@@ -67,7 +81,7 @@ public class HomeFrgmentAgendaRcAdapter extends RecyclerView.Adapter<HomeFrgment
 
 
 
-        public FrstFrgmentAgendaRcViewHolder(@NonNull View itemView) {
+        public FrstFrgmentAgendaRcViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             radioBtn = itemView.findViewById(R.id.frst_frgment_rc_radioButton);
@@ -76,7 +90,13 @@ public class HomeFrgmentAgendaRcAdapter extends RecyclerView.Adapter<HomeFrgment
             subtitleTextTv = itemView.findViewById(R.id.frst_frgment_rc_subtitleTextView);
 
 
-
         }
+    }
+
+    private void removeTodo(int position) {
+        mFrstFrgmentAgendaPojosList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeRemoved(position,mFrstFrgmentAgendaPojosList.size());
+
     }
 }

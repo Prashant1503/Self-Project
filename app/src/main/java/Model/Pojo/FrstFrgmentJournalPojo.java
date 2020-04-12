@@ -2,18 +2,19 @@ package Model.Pojo;
 
 public class FrstFrgmentJournalPojo {
 
-    public String timeText;
+    public String taskTitle;
 
 
-    public FrstFrgmentJournalPojo(String timeText) {
-        this.timeText = timeText;
+
+    public FrstFrgmentJournalPojo(String taskTitle) {
+        this.taskTitle = taskTitle;
     }
 
-    public String getTimeText() {
-        return timeText;
+    public String getTaskTitle() {
+        return taskTitle;
     }
 
-    public void setTimeText(String timeText) {
-        this.timeText = timeText;
+    public void setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
     }
 }

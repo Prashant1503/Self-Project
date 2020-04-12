@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.utility.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,6 @@ public class HomeFragment extends Fragment  {
     private HomeFrgmentMainRcAdapter mHomeFrgmentMainRcAdapter;
     private List<MainRcPojo> mMainRcPojosList;
 
-    private AppCompatTextView whtsInMindTextViewListner;
 
 
 
@@ -55,9 +56,6 @@ public class HomeFragment extends Fragment  {
 
         itemView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        whtsInMindTextViewListner = itemView.findViewById(R.id.whts_inMind_textViewListner);
-
-
 
 
         return itemView;
@@ -68,6 +66,7 @@ public class HomeFragment extends Fragment  {
         super.onViewCreated(view, savedInstanceState);
 
         setMainRecyclerView();
+
 
 
     }

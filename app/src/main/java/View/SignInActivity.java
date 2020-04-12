@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import Contractor.SignInContractor;
 import Presenter.SignInPresenterImpl;
 
+
 public class SignInActivity extends AppCompatActivity implements SignInContractor.View {
 
     public TextInputLayout emailInputLayout,passwordInputLayout;

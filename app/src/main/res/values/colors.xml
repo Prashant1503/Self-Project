@@ -6,4 +6,7 @@
 
 <!--    color for layouts-->
     <color name="subtitle_text_color">#66BB6A</color>
+    <color name="button_color">#74F2CE</color>
+    <color name="numbers_color">#e75480</color>
+    <color name="view_color">#E0E0E0</color>
 </resources>

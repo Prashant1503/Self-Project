@@ -26,7 +26,7 @@
     <string name="agenda_txt">AGENDA</string>
     <string name="goal_counter_txt">0/3</string>
     <string name="add_something_hint_txt">Add Something else</string>
-    <string name="journal_txt">JOURNAL</string>
+    <string name="journal_txt">EVENT</string>
     <string name="what_mind_txt">What\'s on your mind?</string>
     <string name="goal_one_txt">Walk 3,000 steps</string>
 
@@ -46,11 +46,42 @@
     <string name="nav_search_txt">Search</string>
 
 
-
     <!--    frgament string-->
     <string name="home_fragment_text">Home </string>
     <string name="goal_fragment_text">Goal </string>
     <string name="insights_fragment_text">Insights </string>
     <string name="resources_fragment_text">Resources </string>
+    <string name="accept_goal_txt">ACCEPT GOAL</string>
+
+    <!--    goal activity string-->
+    <string name="starts_txt">Starts:</string>
+    <string name="today_txt">Today</string>
+    <string name="month_txt">3 months</string>
+    <string name="add_event_txt">ADD EVENT </string>
+    <string name="event_reschedule_txt">RESCHEDULE</string>
+
+<!--    insight fragment-->
+    <string name="completion_rate_title_txt">Completition Rate of the Week</string>
+    <string name="total_percentage_txt">0%</string>
+    <string name="increment_percentage_txt">+0%</string>
+    <string name="completed_txt">Completed</string>
+    <string name="Undone_txt">Undone</string>
+
+<!--    recently completed-->
+    <string name="recently_completed_title_txt">Recently Completed</string>
+    <string name="delete_title_txt">Delete account</string>
+    <string name="delete_description_txt">Deleting your account is permanent. All your data will be wiped out immediately and you won\'t be able to get it back.</string>
+
+<!--    priority title -->
+    <string name="priority_one_txt">Priority 1</string>
+    <string name="priority_two_txt">Priority 2</string>
+    <string name="priority_three_txt">Priority 3</string>
+    <string name="priority_four_txt">Priority 4</string>
+
+<!--    inbox item string-->
+    <string name="title_txt">Title</string>
+    <string name="subtask_title">Subtask</string>
+
+
 
 </resources>

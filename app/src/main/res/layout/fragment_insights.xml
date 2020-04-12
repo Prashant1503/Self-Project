@@ -1,14 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     tools:context="View.Fragment.InsightsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+<!--        1st layout for static progress bar-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title_completion_rate_heading_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/completion_rate_title_txt"
+                android:textColor="@android:color/black"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/complete_percentage_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_percentage_txt"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/increasing_percentage_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/increment_percentage_txt"
+                android:textSize="17sp"
+                android:textColor="@color/numbers_color"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+<!--        3rd layout for completion rate circular progress bar-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp">
+
+            <ProgressBar
+                android:id="@+id/insight_task_completion_progressBar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:progressDrawable="@drawable/circular_progress_bar_shape"
+                android:progress="1"
+                style="?android:attr/progressBarStyleHorizontal"
+               />
+<!--            style="?android:attr/progressBarStyle"-->
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+<!--        4th layout for completed tv and undone-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/completed_dot_bg"
+                    android:layout_marginTop="5dp"
+                    android:paddingStart="20dp"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/numbers_color"
+                    android:text="@string/completed_txt"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+<!--            5th layout for uncomplete tv-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@drawable/undone_circle_bg"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/undone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/Undone_txt"/>
+
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

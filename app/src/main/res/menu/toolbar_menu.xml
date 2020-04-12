@@ -4,6 +4,7 @@
 
     <item android:id="@+id/toolbar_account"
         android:title="@string/nav_home_txt"
+
         android:icon="@drawable/account_icon"
         app:showAsAction="never">
 
@@ -31,6 +32,12 @@
 
     </item>
 
+    <item android:id="@+id/toolbar_favorite"
+        android:title="@string/nav_resources_txt"
+        android:icon="@drawable/favorite_icon"
+        app:showAsAction="always">
+
+    </item>
 
 
 </menu>

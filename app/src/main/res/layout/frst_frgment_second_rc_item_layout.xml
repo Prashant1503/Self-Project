@@ -5,58 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="3"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-
-<!--        1st linear layout for time textView-->
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <View
             android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/event_radioBtn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+            android:padding="10dp"
+            android:paddingStart="10dp"
+            android:text="Title"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/time_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:text="5:30 PM" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-<!--        2nd linear layout for editImageButton-->
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/edit_imageButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/edit_icon_circle_bg"
-                android:src="@drawable/edit_icon" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/frst_frgment_second_rc_one"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="10dp"
-                android:layout_marginStart="10dp"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </RelativeLayout>
+
+
+
 
 
 
