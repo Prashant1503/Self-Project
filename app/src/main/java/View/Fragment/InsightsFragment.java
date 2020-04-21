@@ -37,12 +37,9 @@ public class InsightsFragment extends Fragment {
 
     boolean completedStatus = true;
 
-
-
     public InsightsFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
